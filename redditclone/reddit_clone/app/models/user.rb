@@ -23,6 +23,11 @@ class User < ApplicationRecord
     foreign_key: :moderator_id,
     class_name: 'Sub'
 
+  has_many :posts,
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: 'Post'
+
 
   def password=(password)
     @password = password

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+Title: <%= @sub.title %>
+<br>
+Description: <%= @sub.description %>
+<br>
+Moderator: <%= @sub.moderator.username %>
+<br>
+
+<h1>Posts</h1>
+
+<ul>
+  <% @sub.posts.each do |post| %>
+    <li>
+    Title: <%= post.title %>
+    Author: <%= post.author.username %>
+    URL: <%= post.url %>
+    <%= post.content %>
+    <br>
+    </li>
+  <% end %>
+</ul>
+
+
+<h2>Add Post</h2>
+
+<form action= "<%=sub_posts_url(@sub)%>" method="post">
+  <%= auth_token_input %>
+
+  <label>
+  Title
+  <input type="text" name="post[title]" value="">
+  </label>
+
+  <label>
+  URL
+  <input type="text" name="post[url]" value="">
+  </label>
+
+  <label>
+  Content
+  <input type="text" name="post[body]" value="">
+  </label>
+
+  <input type="submit" value="Add Post">
+</form>

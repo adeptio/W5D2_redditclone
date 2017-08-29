@@ -1,4 +1,5 @@
 class SubsController < ApplicationController
+  before_action :require_signed_in!
 
   def new
     @sub = Sub.new
@@ -13,6 +14,10 @@ class SubsController < ApplicationController
       flash.now[:errors] = @sub.errors.full_messages
       render :new
     end
+  end
+
+  def index
+    @subs = Sub.all
   end
 
   def show
