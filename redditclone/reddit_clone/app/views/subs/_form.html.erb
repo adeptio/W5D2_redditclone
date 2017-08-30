@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<% action_url = sub.persisted? ? sub_url(@sub) : subs_url %>
+<% http_method = sub.persisted? ? "PATCH" : "POST" %>
+
+<form action= "<%=action_url%>" method= "<%=http_method%>" >
+  <%= auth_token_input %>
+
+  <label>
+    Title
+    <input type="text" name="sub[title]" value= "<%=sub.title%>" >
+  </label>
+
+  <label>
+    Description
+    <input type="text" name="sub[description]" value= "<%=sub.description%>">
+  </label>
+
+  <input type="submit" value="Create Sub">
+</form>

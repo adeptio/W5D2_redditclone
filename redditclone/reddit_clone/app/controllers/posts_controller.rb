@@ -4,13 +4,19 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
+  def show
+    @post = Post.find(params[:id])
+  end
+
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
-    @post.sub_id = params[:sub_id]
-    @post.save
-    flash[:errors] = @post.errors.full_messages
-    redirect_to sub_url(@post.sub_id)
+    if @post.save!
+      redirect_to post_url(@post)
+    else
+      flash[:errors] = @post.errors.full_messages
+      render :new
+    end
   end
 
   def edit
@@ -30,6 +36,6 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :url, :content)
+    params.require(:post).permit(:title, :url, :content, :user_id, sub_ids: [])
   end
 end
